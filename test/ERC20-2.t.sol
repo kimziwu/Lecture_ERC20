@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "../lib/forge-std/src/Test.sol";
-import "../src/ERC20.sol";
+import "src/ERC20.sol";
 
 contract ERC20_Test2 is ERC20, Test {
     ERC20 drm_token;
