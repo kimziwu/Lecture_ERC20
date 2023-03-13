@@ -1,8 +1,6 @@
 // SPDX-License-Identifier : MIT
 pragma solidity ^0.8.0;
 
-
-
 contract ERC20 {
     mapping(address=>uint256) private balances;
     mapping(address=>mapping(address=>uint256)) private allowances;
@@ -43,10 +41,8 @@ contract ERC20 {
 
         unchecked {
             balances[msg.sender]-=_value;
-            // - : underflow -> revert
             balances[_to]+=_value;
         }
-
         emit Transfer(msg.sender,_to,_value);
     }
 
@@ -69,7 +65,7 @@ contract ERC20 {
         if (currentAllowance!=type(uint256).max){
             require(currentAllowance>=_value, "value exceeds balance");
             unchecked {
-                allowances[_from][msg.sender]-=_value; //안하면 계속 보내지는 문제 발생
+                allowances[_from][msg.sender]-=_value; 
             }
         }
         
@@ -85,6 +81,7 @@ contract ERC20 {
     function totalSupply() public view returns (uint256) {
         return _totalSupply;
     }
+
     function _mint(address _owner, uint256 _value) internal {
         require(_owner!=address(0),"mint to the zero address");
         _totalSupply+=_value;
@@ -104,9 +101,6 @@ contract ERC20 {
         emit Transfer(_owner,address(0), _value);
     }
     
-
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
-
 }
-
